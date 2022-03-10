@@ -1,22 +1,20 @@
-import React, { FormEvent } from "react";
+import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import axios from "axios";
 import swal from "sweetalert";
 import ParticleBackground from "../../components/Particle-background";
-import { useRouter } from "next/router";
 
 const theme = createTheme({
   palette: {
@@ -45,12 +43,12 @@ const theme = createTheme({
   },
 });
 
-export default function App() {
+const SignUp = () => {
   const router = useRouter();
 
   const onLogin = async (email: string, password: string) => {
     return await axios.post(
-      "https://l01zlfesba.execute-api.us-east-1.amazonaws.com/login",
+      "https://l01zlfesba.execute-api.us-east-1.amazonaws.com/users",
       JSON.stringify({
         email: email,
         password: password,
@@ -63,11 +61,15 @@ export default function App() {
     );
   };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // const data = new FormData(event.currentTarget);
-    console.log(event.currentTarget["email"].value);
-    console.log(event.currentTarget["password"].value);
+    const data = new FormData(event.currentTarget);
+    // eslint-disable-next-line no-console
+    console.log({
+      username: data.get("username"),
+      email: data.get("email"),
+      password: data.get("password"),
+    });
     try {
       const response = await onLogin(
         event.currentTarget["email"].value,
@@ -79,7 +81,7 @@ export default function App() {
           timer: 2000,
         }).then((value: any) => {
           localStorage.setItem("data", response["data"]);
-          router.push("/login");
+          router.push("/");
         });
       } else {
         swal("Failed", "error");
@@ -102,19 +104,18 @@ export default function App() {
   return (
     <>
       <Head>
-        <title>Login</title>
+        <title>Register</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>
+      <div id="particle-background">
         <ParticleBackground />
       </div>
-
-      <div id="login" style={{ paddingTop: 60, display: "block" }}>
+      <div id="login" style={{ paddingTop: 60 }}>
         <ThemeProvider theme={theme}>
           <Container
+            component="main"
             maxWidth="xs"
             sx={{
-              display: "block",
               paddingTop: 1,
               paddingBottom: 5,
               alignItems: "center",
@@ -138,56 +139,57 @@ export default function App() {
                 <LockOutlinedIcon />
               </Avatar>
               <Typography component="h1" variant="h5">
-                Sign in
+                Sign up
               </Typography>
               <Box
                 component="form"
-                onSubmit={handleSubmit}
                 noValidate
-                sx={{ mt: 1 }}
+                onSubmit={handleSubmit}
+                sx={{ mt: 3 }}
               >
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  color="primary"
-                  variant="outlined"
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  color="primary"
-                  variant="outlined"
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                />
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
-                />
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <TextField
+                      autoComplete="user-name"
+                      name="username"
+                      required
+                      fullWidth
+                      id="username"
+                      label="Username"
+                      autoFocus
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      fullWidth
+                      id="email"
+                      label="Email Address"
+                      name="email"
+                      autoComplete="email"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      required
+                      fullWidth
+                      name="password"
+                      label="Password"
+                      type="password"
+                      id="password"
+                      autoComplete="new-password"
+                    />
+                  </Grid>
+                </Grid>
                 <Button
                   type="submit"
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  Sign In
+                  Sign Up
                 </Button>
-                <Grid container>
-                  <Grid item xs>
-                    <Link href="#" variant="body2" underline="none">
-                      Forgot password?
-                    </Link>
-                  </Grid>
+                <Grid container justifyContent="flex-end">
                   <Grid
                     item
                     sx={{
@@ -199,9 +201,9 @@ export default function App() {
                       textDecoration: "none",
                     }}
                   >
-                    {"Don't have an account?"}
-                    <Link href="/signup" variant="body2" underline="none">
-                      {" Sign Up"}
+                    {"Already have an account?"}
+                    <Link href="/login" variant="body2" underline="none">
+                      {" Sign in"}
                     </Link>
                   </Grid>
                 </Grid>
@@ -212,4 +214,6 @@ export default function App() {
       </div>
     </>
   );
-}
+};
+
+export default SignUp;
