@@ -28,7 +28,7 @@ def login():
     conn = mysql.connect()
     cursor = conn.cursor()
     data = request.form
-    username = data['username']
+
     password = data['password']
     email = data['email']
 
