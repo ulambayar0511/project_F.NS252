@@ -50,7 +50,7 @@ export default function App() {
 
   const onLogin = async (email: string, password: string) => {
     return await axios.post(
-      "https://l01zlfesba.execute-api.us-east-1.amazonaws.com/login",
+      "`$IP`/login",
       JSON.stringify({
         email: email,
         password: password,
@@ -75,7 +75,6 @@ export default function App() {
       );
       if ("data" in response) {
         swal("Success", "success", {
-          buttons: false,
           timer: 2000,
         }).then((value: any) => {
           localStorage.setItem("data", response["data"]);
