@@ -46,9 +46,9 @@ const theme = createTheme({
 const SignUp = () => {
   const router = useRouter();
 
-  const onLogin = async (email: string, password: string) => {
+  const onSignup = async (email: string, password: string) => {
     return await axios.post(
-      "https://l01zlfesba.execute-api.us-east-1.amazonaws.com/users",
+      "`$IP`/signup",
       JSON.stringify({
         email: email,
         password: password,
@@ -71,13 +71,12 @@ const SignUp = () => {
       password: data.get("password"),
     });
     try {
-      const response = await onLogin(
+      const response = await onSignup(
         event.currentTarget["email"].value,
         event.currentTarget["password"].value
       );
       if ("data" in response) {
         swal("Success", "success", {
-          buttons: false,
           timer: 2000,
         }).then((value: any) => {
           localStorage.setItem("data", response["data"]);
