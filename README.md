@@ -6,7 +6,7 @@
 - Login / Sign-up
 
 ## Technologies
-- [NextJs](https://nextjs.org) 
+- [Next JS](https://nextjs.org) 
 - [@material-ui](https://material-ui.com)
 - [Flask](https://flask.palletsprojects.com/)
 
