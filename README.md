@@ -4,17 +4,19 @@
 
 **Module**
 - Login / Sign-up
+- NMAP Scanner
+- Sqlite3
 
 ## Technologies
 - [Next JS](https://nextjs.org) 
-- [@Chakra-UI](https://chakra-ui.com/)
-- [Flask](https://flask.palletsprojects.com/)
+- [@Chakra-UI](https://chakra-ui.com/) for 
+- [Go Fiber](https://gofiber.io/) for user authentication and registration service
 
 ## Requirements
 
 - MySQL 8.0
 - Node JS 12.22 or higher
-- Python 3.0 or higher
+- Go 1.18
 
 ## Run App
 
