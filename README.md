@@ -7,7 +7,7 @@
 
 ## Technologies
 - [Next JS](https://nextjs.org) 
-- [@Chakra-ui](https://chakra-ui.com/)
+- [@Chakra-UI](https://chakra-ui.com/)
 - [Flask](https://flask.palletsprojects.com/)
 
 ## Requirements
