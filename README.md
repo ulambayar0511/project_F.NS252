@@ -7,7 +7,7 @@
 
 ## Technologies
 - [Next JS](https://nextjs.org) 
-- [@material-ui](https://material-ui.com)
+- [@Chakra-ui](https://chakra-ui.com/)
 - [Flask](https://flask.palletsprojects.com/)
 
 ## Requirements
@@ -30,4 +30,4 @@ yarn dev
 docker-compose up
 ```
 
-Open [http://localhost:3003](http://localhost:3003) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
