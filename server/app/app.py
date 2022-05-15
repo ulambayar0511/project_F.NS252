@@ -15,7 +15,7 @@ mysql.init_app(app)
 def users():
     conn = mysql.connect()
     cursor = conn.cursor()
-    sql = "SELECT * FROM user"
+    sql = "SELECT * FROM users"
     cursor.execute(sql)
     rows = cursor.fetchall()
     resp = jsonify(rows)
@@ -35,7 +35,7 @@ def login():
     hash_value = SHA224.new()
     hash_value.update(password.encode("utf-8"))
     password = hash_value.hexdigest()
-    query_string = """SELECT * FROM user WHERE email=%s AND password=%s"""
+    query_string = """SELECT * FROM users WHERE email=%s AND password=%s"""
     values = (email, password)
     cursor.execute(
         query_string, values)
@@ -64,14 +64,14 @@ def signup():
     hash_value.update(password.encode("utf-8"))
     # save db
     password = hash_value.hexdigest()
-    query_string = """SELECT * FROM user WHERE email=%s AND password=%s"""
+    query_string = """SELECT * FROM users WHERE email=%s AND password=%s"""
     values = (email, password)
     cursor.execute(
         query_string, values)
-    user = cursor.fetchall()
+    user = cursor.fetchone()
     if user:
         return {"success": False}
-    query_string = """INSERT  INTO user (username, email, password) VALUES (%s,%s,%s)"""
+    query_string = """INSERT  INTO users (username, email, password) VALUES (%s,%s,%s)"""
     values = (username, email, password)
 
     user = cursor.execute(query_string, values)
