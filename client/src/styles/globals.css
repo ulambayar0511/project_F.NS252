@@ -14,13 +14,3 @@ a {
 * {
   box-sizing: border-box;
 }
-
-login {
-  background: #3D3D3D;
-  opacity: 0.9;
-  padding: 2em;
-  border: #3D3D3D 2px solid;
-  position: absolute;
-  top: 100px;
-  left: 50px;
-}
