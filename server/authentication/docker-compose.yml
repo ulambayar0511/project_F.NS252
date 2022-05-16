@@ -1,0 +1,38 @@
+version: '3.7'
+
+services:
+
+  db:
+    image: mysql:8.0.28
+    # command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: N6cgHa2uBn=#3_7n
+      MYSQL_DATABASE: auth-service
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: P@ssw0rd
+      MYSQL_TCP_PORT: 3306
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db/:/docker-entrypoint-initdb.d/
+    networks:
+      - default_net
+
+  app:
+    build: ./app
+    restart: always
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=admin
+      - DB_PASSWORD=P@ssw0rd
+      - DB_NAME=auth-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - default_net
+    
+  
