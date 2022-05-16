@@ -47,7 +47,7 @@ function MyApp({ Component, pageProps, ...appProps }: AppProps) {
   //       </ChakraProvider>
   //     );
   // };
-  if (['/login'].includes(appProps.router.pathname))
+  if (['/login'].includes(appProps.router.pathname) || ['/signup'].includes(appProps.router.pathname))
     return (
       <ChakraProvider theme={theme}>
         <Component {...pageProps} />
